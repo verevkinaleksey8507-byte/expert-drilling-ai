@@ -1,8 +1,8 @@
 import { copyFileSync, createWriteStream, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
 import archiver from "archiver";
+import { build as buildWithEsbuild } from "esbuild";
 
 const root = resolve(import.meta.dirname, "..");
 const output = resolve(root, "offline-dist");
@@ -14,8 +14,15 @@ mkdirSync(downloads, { recursive: true });
 copyFileSync(resolve(root, "offline", "index.html"), resolve(output, "index.html"));
 copyFileSync(resolve(root, "offline", "style.css"), resolve(output, "style.css"));
 writeFileSync(resolve(output, "ОТКРОЙТЕ_МЕНЯ.txt"), "ЭКСПЕРТ БУРЕНИЕ AI — АВТОНОМНАЯ ВЕРСИЯ\n\n1. Распакуйте архив полностью.\n2. Откройте файл index.html двойным щелчком.\n3. Для работы интернет не нужен.\n4. Проекты сохраняются в браузере и переносятся файлом .drillcalc.\n\nПеред производственным применением сверяйте исходные данные и результаты с проектом, программой работ и требованиями ПБОТОС.\n", "utf8");
-const build = spawnSync(resolve(root, "node_modules", ".bin", "esbuild"), [resolve(root, "offline", "app.ts"), "--bundle", "--format=iife", "--platform=browser", "--target=es2020", `--outfile=${resolve(output, "app.js")}`], { cwd: root, stdio: "inherit" });
-if (build.status !== 0) process.exit(build.status || 1);
+await buildWithEsbuild({
+  entryPoints: [resolve(root, "offline", "app.ts")],
+  bundle: true,
+  format: "iife",
+  platform: "browser",
+  target: "es2020",
+  outfile: resolve(output, "app.js"),
+  logLevel: "info",
+});
 const engineSource = readFileSync(resolve(root, "lib", "project.ts"), "utf8");
 const engineVersion = engineSource.match(/FORMULA_ENGINE_VERSION\s*=\s*"([^"]+)"/)?.[1];
 if (!engineVersion) throw new Error("Не найдена версия расчётного ядра.");
