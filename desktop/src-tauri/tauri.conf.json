@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Эксперт бурение AI",
+  "version": "0.2.0",
+  "identifier": "ru.expertdrilling.calculator",
+  "build": {
+    "frontendDist": "../../offline-dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Эксперт бурение AI",
+        "width": 1440,
+        "height": 900,
+        "minWidth": 1024,
+        "minHeight": 680,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' asset:; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Productivity",
+    "shortDescription": "Автономные инженерные расчёты по бурению",
+    "longDescription": "Инженерный калькулятор по бурению и цементированию. Все основные расчёты и проекты работают локально без подключения к интернету.",
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller",
+        "silent": true
+      },
+      "nsis": {
+        "installMode": "currentUser",
+        "languages": ["Russian", "English"],
+        "displayLanguageSelector": false,
+        "compression": "lzma",
+        "startMenuFolder": "Эксперт бурение AI"
+      }
+    },
+    "macOS": {
+      "minimumSystemVersion": "11.0"
+    }
+  }
+}

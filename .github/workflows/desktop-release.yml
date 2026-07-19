@@ -1,0 +1,107 @@
+name: Desktop installers
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_name:
+        description: "Название контрольной сборки"
+        required: true
+        default: "desktop-0.2.0"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Formula and offline validation
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:formulas
+      - run: npm run build:offline
+      - run: node scripts/verify-offline-bundle.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Expert-Drilling-AI-Browser-Offline
+          path: public/downloads/Expert-Drilling-AI-Offline.zip
+          if-no-files-found: error
+
+  installers:
+    name: ${{ matrix.name }}
+    needs: validate
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows installer
+            platform: windows-latest
+            args: ""
+          - name: macOS Apple Silicon
+            platform: macos-latest
+            args: "--target aarch64-apple-darwin"
+          - name: macOS Intel
+            platform: macos-latest
+            args: "--target x86_64-apple-darwin"
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ contains(matrix.platform, 'macos') && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - run: npm ci
+      - run: npm run test:formulas
+      - run: npm run build:offline
+      - run: npm ci
+        working-directory: desktop
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: desktop
+          args: ${{ matrix.args }}
+          uploadWorkflowArtifacts: true
+          workflowArtifactNamePattern: "Expert-Drilling-AI-[platform]-[arch]-[bundle]"
+          releaseAssetNamePattern: "Expert-Drilling-AI-[platform]-[arch][setup].[ext]"
+
+  windows-portable:
+    name: Windows portable
+    needs: validate
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - run: npm ci
+      - run: npm run build:offline
+      - run: npm ci
+        working-directory: desktop
+      - name: Build portable executable
+        working-directory: desktop
+        run: npm run tauri -- build --no-bundle
+      - name: Prepare portable package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force portable | Out-Null
+          Copy-Item "desktop/src-tauri/target/release/expert-drilling-ai.exe" "portable/Expert-Drilling-AI-Portable.exe"
+          Set-Content -Encoding UTF8 "portable/README.txt" "Portable-версия не устанавливается. Для запуска требуется Microsoft Edge WebView2, который обычно уже входит в Windows 10/11. Расчётные данные хранятся локально."
+          Compress-Archive -Path "portable/*" -DestinationPath "Expert-Drilling-AI-Windows-Portable.zip" -Force
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Expert-Drilling-AI-Windows-Portable
+          path: Expert-Drilling-AI-Windows-Portable.zip
+          if-no-files-found: error
