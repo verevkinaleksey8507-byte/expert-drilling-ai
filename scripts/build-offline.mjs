@@ -1,7 +1,8 @@
-import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, createWriteStream, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
+import archiver from "archiver";
 
 const root = resolve(import.meta.dirname, "..");
 const output = resolve(root, "offline-dist");
@@ -24,6 +25,15 @@ const formulaCount = (formulaBlock.match(/"[^"]+"/g) || []).length;
 const files = Object.fromEntries(["index.html", "app.js", "style.css"].map((name) => [name, createHash("sha256").update(readFileSync(resolve(output, name))).digest("hex")]));
 writeFileSync(resolve(output, "build-manifest.json"), JSON.stringify({ product: "Эксперт бурение AI", version: "0.2.0", formulaEngineVersion: engineVersion, formulaCount, createdAt: new Date().toISOString(), files }, null, 2));
 rmSync(offlineZip, { force: true });
-const zip = spawnSync("zip", ["-q", "-r", offlineZip, "."], { cwd: output, stdio: "inherit" });
-if (zip.status !== 0) process.exit(zip.status || 1);
+await new Promise((resolveArchive, rejectArchive) => {
+  const stream = createWriteStream(offlineZip);
+  const archive = archiver("zip", { zlib: { level: 9 } });
+  stream.on("close", resolveArchive);
+  stream.on("error", rejectArchive);
+  archive.on("warning", (error) => error.code === "ENOENT" ? console.warn(error.message) : rejectArchive(error));
+  archive.on("error", rejectArchive);
+  archive.pipe(stream);
+  archive.directory(output, false);
+  archive.finalize();
+});
 console.log(offlineZip);

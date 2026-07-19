@@ -32,6 +32,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "@vitejs/plugin-rsc": "0.5.26",
+    "archiver": "^7.0.1",
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
@@ -43,5 +44,5 @@
     "wrangler": "4.92.0"
   },
   "type": "module",
-  "displayName": "\u042d\u043a\u0441\u043f\u0435\u0440\u0442 \u0431\u0443\u0440\u0435\u043d\u0438\u0435 AI"
+  "displayName": "Эксперт бурение AI"
 }
