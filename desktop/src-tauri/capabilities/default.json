@@ -1,7 +1,0 @@
-{
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Минимальные локальные возможности калькулятора",
-  "windows": ["main"],
-  "permissions": ["core:default"]
-}

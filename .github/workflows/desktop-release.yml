@@ -43,13 +43,13 @@ jobs:
         include:
           - name: Windows installer
             platform: windows-latest
-            args: ""
+            args: "--bundles nsis"
           - name: macOS Apple Silicon
             platform: macos-latest
-            args: "--target aarch64-apple-darwin"
+            args: "--target aarch64-apple-darwin --bundles dmg"
           - name: macOS Intel
             platform: macos-latest
-            args: "--target x86_64-apple-darwin"
+            args: "--target x86_64-apple-darwin --bundles dmg"
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
