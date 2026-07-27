@@ -27,16 +27,18 @@ The product is not an Excel template. Excel is the first application platform an
 
 ## Current milestone
 
-Version `0.1.0` establishes the project foundation only:
+Version `0.2.0` establishes the IWCF Kill Sheet layout baseline:
 
-- repository structure;
-- project governance documentation;
-- the macro-enabled `ExpertSupervisor.xlsm` workbook;
-- one empty worksheet named `IWCF Kill Sheet`.
+- one two-page Russian-language worksheet named `IWCF Kill Sheet`;
+- structured input, future calculation, schedule and approval areas;
+- consistent visual roles for inputs, future outputs and warnings;
+- supporting layout specification and QA checklist.
 
 ## Explicitly out of scope
 
-This milestone contains no engineering formulas, calculations, input forms, worksheet layout, VBA code, automation, reports, controls, external links or data connections.
+This milestone contains no engineering formulas, automatic calculations,
+VBA code, automation, external links or data connections.
 
-The next planned milestone is recreation of the IWCF Kill Sheet layout. It must be started only after this foundation is reviewed and accepted.
-
+The next planned milestone is implementation and independent verification of
+engineering calculations. Calculation work must remain separate from the
+accepted layout baseline and must include traceable sources and test cases.

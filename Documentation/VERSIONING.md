@@ -13,6 +13,12 @@ Expert Drilling AI follows Semantic Versioning: `MAJOR.MINOR.PATCH`.
 
 `0.1.0` is the project-foundation milestone. It establishes the repository modules, governance documentation and empty macro-enabled workbook.
 
+## Current development version
+
+`0.2.0` is the IWCF Kill Sheet layout milestone. It adds the two-page
+Russian-language worksheet structure and visual conventions without
+engineering formulas, VBA or automation.
+
 ## Release rules
 
 - Do not tag or publish a release until its Pull Request is reviewed and accepted.
@@ -27,4 +33,3 @@ Expert Drilling AI follows Semantic Versioning: `MAJOR.MINOR.PATCH`.
 - Commits: concise imperative description of the complete change.
 - Pull Requests: one scope, clear impact and validation evidence.
 - Default branch: `main`; direct commits are prohibited.
-
