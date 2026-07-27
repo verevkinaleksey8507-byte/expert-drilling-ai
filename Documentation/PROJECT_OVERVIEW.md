@@ -27,18 +27,20 @@ The product is not an Excel template. Excel is the first application platform an
 
 ## Current milestone
 
-Version `0.2.0` establishes the IWCF Kill Sheet layout baseline:
+Version `0.3.0` implements the first calculation and input-control baseline for
+the IWCF Kill Sheet:
 
 - one two-page Russian-language worksheet named `IWCF Kill Sheet`;
-- structured input, future calculation, schedule and approval areas;
-- consistent visual roles for inputs, future outputs and warnings;
-- supporting layout specification and QA checklist.
+- controlled yellow input fields and grey calculated fields;
+- formation-strength, pressure, capacity, volume and pump-stroke calculations;
+- kill-mud density, initial and final circulating pressure calculations;
+- a ten-interval drillpipe-pressure reduction schedule;
+- numeric input validation, limit warnings and calculation-state messages;
+- traceable source references and a documented independent test vector.
 
 ## Explicitly out of scope
 
-This milestone contains no engineering formulas, automatic calculations,
-VBA code, automation, external links or data connections.
-
-The next planned milestone is implementation and independent verification of
-engineering calculations. Calculation work must remain separate from the
-accepted layout baseline and must include traceable sources and test cases.
+This milestone contains no VBA, buttons, forms, external data connections or
+company-specific approval logic. It remains an engineering working tool and
+does not replace an approved organisation kill sheet or an independent
+well-control calculation.

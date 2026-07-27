@@ -15,9 +15,11 @@ Expert Drilling AI follows Semantic Versioning: `MAJOR.MINOR.PATCH`.
 
 ## Current development version
 
-`0.2.0` is the IWCF Kill Sheet layout milestone. It adds the two-page
-Russian-language worksheet structure and visual conventions without
-engineering formulas, VBA or automation.
+`0.3.0` is the IWCF Kill Sheet calculation milestone. It adds traceable
+engineering formulas, numeric input validation, pressure-limit warnings and a
+ten-interval pressure-reduction schedule to the accepted two-page layout.
+
+VBA and UI automation remain deferred.
 
 ## Release rules
 

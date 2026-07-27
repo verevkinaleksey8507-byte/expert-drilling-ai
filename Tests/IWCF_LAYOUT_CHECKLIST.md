@@ -1,12 +1,16 @@
 # IWCF Kill Sheet Layout Acceptance Checklist
 
+Historical acceptance record for the Stage 2 / version `0.2.0` layout
+baseline. The current Stage 3 workbook contains formulas and validation; use
+`IWCF_CALCULATION_CHECKLIST.md` for current acceptance.
+
 ## Workbook integrity
 
 - [x] `Excel/ExpertSupervisor.xlsm` is a valid macro-enabled OOXML workbook.
 - [x] The workbook contains exactly one visible worksheet.
 - [x] The worksheet name is exactly `IWCF Kill Sheet`.
 - [x] The workbook contains no VBA project.
-- [x] The worksheet contains no formulas.
+- [x] The Stage 2 baseline worksheet contained no formulas.
 - [x] The worksheet contains no spreadsheet error values.
 
 ## Layout
@@ -22,7 +26,7 @@
 
 ## Stage boundary
 
-- [x] No engineering calculations are implemented.
-- [x] No automatic validation is implemented.
+- [x] Engineering calculations were not implemented in the Stage 2 baseline.
+- [x] Automatic validation was not implemented in the Stage 2 baseline.
 - [x] No VBA or control automation is implemented.
 - [x] The form visibly states its Stage 2 limitation.
