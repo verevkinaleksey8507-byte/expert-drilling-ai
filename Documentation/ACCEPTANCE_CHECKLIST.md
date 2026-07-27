@@ -1,5 +1,9 @@
 # Foundation Acceptance Checklist
 
+This checklist records the accepted `0.1.0` foundation baseline. The current
+`0.2.0` layout stage is verified by
+`Tests/IWCF_LAYOUT_CHECKLIST.md`.
+
 ## Repository
 
 - [ ] `Excel/`, `Documentation/`, `Templates/`, `Images/`, `VBA/` and `Tests/` exist and are tracked.
@@ -34,4 +38,3 @@
 - [ ] No IWCF Kill Sheet layout has been drawn.
 - [ ] No engineering calculations have been implemented.
 - [ ] No VBA or automation has been implemented.
-
