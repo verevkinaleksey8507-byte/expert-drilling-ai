@@ -1,8 +1,9 @@
 # Foundation Acceptance Checklist
 
 This checklist records the accepted `0.1.0` foundation baseline. The current
-`0.2.0` layout stage is verified by
-`Tests/IWCF_LAYOUT_CHECKLIST.md`.
+`0.3.0` calculation stage is verified by
+`Tests/IWCF_CALCULATION_CHECKLIST.md`. The statements below are historical
+acceptance criteria for the original empty-workbook milestone.
 
 ## Repository
 

@@ -2,7 +2,8 @@
 
 ## Status
 
-Stage 2 layout baseline for Expert Drilling AI version `0.2.0`.
+Stage 2 layout baseline, retained and activated by the Stage 3 calculation
+release of Expert Drilling AI version `0.3.0`.
 
 ## Scope
 
@@ -49,18 +50,15 @@ Page 2 contains:
 
 - dark blue bands identify major sections;
 - pale yellow cells are manual input fields;
-- grey cells are reserved for calculated results in a later stage;
+- grey cells contain formula-driven calculated results;
 - pale blue cells identify labels and table headers;
-- red notices state that calculations and automatic checks are not yet
-  implemented.
+- the status bands report missing inputs, invalid combinations and pressure
+  limit warnings.
 
 ## Deferred work
 
-The following work is explicitly outside Stage 2:
+The following work remains deferred after Stage 3:
 
-- engineering formulas;
-- automatic calculations;
-- data validation and limit checks;
 - VBA;
 - buttons, forms and navigation automation;
 - protection and role-based editing;
